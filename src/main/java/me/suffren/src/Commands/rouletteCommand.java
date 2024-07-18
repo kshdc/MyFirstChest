@@ -40,6 +40,7 @@ public class rouletteCommand implements CommandExecutor, Listener {
     private ItemStack enchantedBookItem;
     private ItemStack IRON_INGOT;
     private ItemStack BLOC_DIRT;
+    private ItemStack Sword_Diamond;
     private final Random random;
 
 
@@ -70,6 +71,12 @@ public class rouletteCommand implements CommandExecutor, Listener {
         if (ironMeta != null) {
             ironMeta.setDisplayName("Lingot de Fer");
             IRON_INGOT.setItemMeta(ironMeta);
+        }
+
+        Sword_Diamond = new ItemStack(Material.LEGACY_DIAMOND_SWORD);
+        ItemMeta swordMeta = Sword_Diamond.getItemMeta();
+        if (swordMeta != null) {
+            swordMeta.setDisplayName("Sword Diamond");
         }
 
         waterBucketItem = new ItemStack(Material.WATER_BUCKET);
@@ -157,7 +164,7 @@ public class rouletteCommand implements CommandExecutor, Listener {
     private void startAnimation(Player player) {
         new BukkitRunnable() {
             int ticksPassed = 0;
-            final ItemStack[] items = new ItemStack[]{winItem, steakItem, witherHeadItem, waterBucketItem, enchantedBookItem, IRON_INGOT, BLOC_DIRT};
+            final ItemStack[] items = new ItemStack[]{winItem, steakItem, witherHeadItem, waterBucketItem, Sword_Diamond, enchantedBookItem, IRON_INGOT, BLOC_DIRT};
 
             @Override
             public void run() {
@@ -175,7 +182,7 @@ public class rouletteCommand implements CommandExecutor, Listener {
         }.runTaskTimer(plugin, 0L, 5L);
     }
     private void giveRandomPrize(Player player) {
-        int totalRewards = 7;
+        int totalRewards = 8;
         int randomNumber = random.nextInt(totalRewards);
 
         ItemStack prize;
@@ -201,6 +208,9 @@ public class rouletteCommand implements CommandExecutor, Listener {
                 break;
             case 6:
                 prize = BLOC_DIRT;
+                break;
+            case 7:
+                prize = Sword_Diamond;
                 break;
             default:
                 prize = null;
@@ -255,6 +265,10 @@ public class rouletteCommand implements CommandExecutor, Listener {
             player.sendMessage("§aVous avez gagné 64 bloc de terre!");
             announcementMessage = "§a" + player.getName() + " a gagné 64 bloc de terre!";
             player.playSound(player.getLocation(), victorySound, 1.0f, 1.0f);
+        }
+        else if (prize.isSimilar(Sword_Diamond)) {
+            player.setHealth(0.0);
+            player.sendMessage("§aVous avez été tué par la roulette!");
         }
 
         if (announcementMessage != null) {
