@@ -1,0 +1,9 @@
+name: MyFirstChest
+version: 1.2
+authors:
+  - suffren
+main: me.suffren.src.Main
+description: A plugin for my private server in 1.21
+commands:
+  roulette:
+    description: Commande de test avec un délai de 24 heures
