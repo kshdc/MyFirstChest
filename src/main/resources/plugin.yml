@@ -7,3 +7,7 @@ description: A plugin for my private server in 1.21
 commands:
   roulette:
     description: Commande de test avec un délai de 24 heures
+  fly:
+    description: Commande pour fly
+  craft:
+    description: ouvrir une table de craft mdr
